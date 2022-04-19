@@ -1,5 +1,5 @@
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
-  TouchableOpacity, Platform,Keyboard
+  TouchableOpacity, Platform,
 } from 'react-native';
 import colors from '../../constants/colors';
 import constant from "../../constants/constant";
@@ -16,20 +16,9 @@ import ButtonCustomComponent from "../../components/ButtonCustomComponent";
 import {useDispatch} from "react-redux";
 
 function RegisterToVote02(props) {
-  const [keyboardIsShow, setKeyBoardIsShow] = useState(false);
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', () => {
-      setKeyBoardIsShow(true);
-    });
-    Keyboard.addListener('keyboardDidHide', () => {
-      setKeyBoardIsShow(false);
-    });
-  });
   const dispatch = useDispatch();
   return (
     <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-      
       <View
         style={{
           flexDirection: 'column',
@@ -38,7 +27,7 @@ function RegisterToVote02(props) {
           paddingHorizontal: 10,
         }}
       >
-        {keyboardIsShow==false&& <Text
+        <Text
           style={{
             fontWeight: 'bold',
             fontSize: 18,
@@ -48,8 +37,7 @@ function RegisterToVote02(props) {
           }}
         >
           興味のあるタグを複数登録できます
-        </Text>}
-        
+        </Text>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
             style={{
@@ -240,7 +228,7 @@ function RegisterToVote02(props) {
             </TouchableOpacity>
           </View>
         </View>
-        {keyboardIsShow==false&& <View style={{ position: 'absolute', bottom: 0, paddingBottom: 10, alignSelf: 'center'}}>
+        <View style={{ position: 'absolute', bottom: 0, paddingBottom: 10, alignSelf: 'center'}}>
           <ButtonCustomComponent
             label={'次へ'}
             customStyle={{ backgroundColor: colors.btnNext, width: constant.WIDTH / 3, alignSelf: 'center'}}
@@ -249,8 +237,7 @@ function RegisterToVote02(props) {
               dispatch(navigateAction({name: 'ChooseToRegister'}));
             }}
           />
-        </View>}
-        
+        </View>
       </View>
     </SafeAreaView>
   );

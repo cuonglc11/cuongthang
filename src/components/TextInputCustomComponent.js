@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   Platform,
+  Keyboard,
 } from 'react-native';
 import colors from '../constants/colors';
 import commonStyle from "../resource/styles/commonStyles";
@@ -65,7 +66,7 @@ const stylesInput = StyleSheet.create({
     marginVertical: 12,
   },
   textInput: {
-    height: 35,
+    height: 34,
     width: '100%',
     marginTop: 4,
   },

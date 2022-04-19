@@ -16,6 +16,7 @@ import CameraUI from '../containers/CameraUI'
 import Popup from '../containers/Popup';
 import RegisterToCompete02 from '../containers/RegisterToCompete02'
 import TopPage from "../containers/TopPage";
+import test1 from "../containers/test1"
 Popup
 const Stack = createStackNavigator();
 
@@ -50,6 +51,14 @@ function StackNavigator(props) {
       <Stack.Screen
         name="RegisterToVote01"
         component={RegisterToVote01}
+        options={{
+          headerShown: true,
+          title: <Logo />,
+        }}
+      />
+       <Stack.Screen
+        name="test1"
+        component={test1}
         options={{
           headerShown: true,
           title: <Logo />,

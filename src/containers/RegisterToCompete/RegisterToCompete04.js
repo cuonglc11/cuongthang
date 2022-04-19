@@ -1,5 +1,5 @@
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
-  TouchableOpacity,Keyboard
+  TouchableOpacity,
 } from 'react-native';
 import constant from '../../constants/constant';
 import {icons} from '../../constants';
@@ -22,20 +22,10 @@ import ButtonCustomComponent from '../../components/ButtonCustomComponent';
 import {useDispatch} from 'react-redux';
 
 function RegisterToVote04(props) {
-  const [keyboardIsShow, setKeyBoardIsShow] = useState(false);
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', () => {
-      setKeyBoardIsShow(true);
-    });
-    Keyboard.addListener('keyboardDidHide', () => {
-      setKeyBoardIsShow(false);
-    });
-  });
   return (
     <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flexDirection: 'column', flex: 1, zIndex: 9, elevation: 1}}>
-        {keyboardIsShow==false&&<Text
+        <Text
           style={{
             fontWeight: 'bold',
             fontSize: 18,
@@ -45,8 +35,7 @@ function RegisterToVote04(props) {
           }}
         >
           ハッシュタグを10個まで登録できます
-        </Text>}
-        
+        </Text>
         <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
           <TouchableOpacity
             style={{
@@ -232,7 +221,6 @@ function RegisterToVote04(props) {
             </TouchableOpacity>
           </View>
         </View>
-        {keyboardIsShow==false&&<View style={{ position: 'absolute', bottom: 0, alignSelf: 'center'}}>
         <ButtonCustomComponent
           label={'次へ'}
           customStyle={{
@@ -247,11 +235,9 @@ function RegisterToVote04(props) {
             paddingVertical: Platform.OS === 'ios' ? 5 : 0,
           }}
           onPress={() => {
+            // dispatch(navigateAction({name: 'ChooseToRegister'}));
           }}
         />
-        </View>
-        }
-        
       </View>
     </SafeAreaView>
   );

@@ -131,13 +131,11 @@ function RegisterToCompete01(props) {
   const addNewImage = async result => {
     const newAlbum = {...albumImage};
     const imageConverted = await common.resizeImageNotVideo(result);
-    console.log(imageConverted)
+
     const isImgActive = Object.values(newAlbum).find(value => value.imgActive);
     if (imageConverted?.uri) {
       isImgActive.img = imageConverted;
-      d
     }
-    console.log(result+"xs")
     setAlbumImage(newAlbum);
     setIsDoubleClick(true);
   };

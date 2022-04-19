@@ -18,54 +18,11 @@ import ModalDropdownComponent from "../../components/ModalDropdownComponent";
 import commonStyle from "../../resource/styles/commonStyles";
 import constant from "../../constants/constant";
 import {navigateAction} from "../../actions/navigationActions";
-import ProgressiveImage from '../../components/ProgressiveImage';
 import ButtonCustomComponent from "../../components/ButtonCustomComponent";
 import {useDispatch} from "react-redux";
-import common from '../../utils/common';
 
 function RegisterToVote01(props) {
   const dispatch = useDispatch();
-  const [isDoubleClick, setIsDoubleClick] = useState(true);
-  const [imgavt , setImgAvt] = useState({})
-  const openCamera = () =>  {
-    // console.log('11111')
-    setIsDoubleClick(false);
-    common.pickImageFromCamera(
-      async result =>  {
-        // await addNewImge(result)
-        setImgAvt(result.path)
-      },
-      onFalse => {
-        setIsDoubleClick(true)
-      }
-    )
-
-  }
-  const [image, setAlbumImage] = useState({
-    imageCommon: {
-      key: 'imageCommon',
-      img: null,
-      imgActive: false,
-    }
-  })
-
-  const addNewImge = async result => {
-    const imageConverted  = await common.resizeImageNotVideo(result)
-    // const isImgActive = Object.values(newAlbum).find(value => value.imgActive)
-    if(imageConverted?.uri){
-      isImgActive.img  = imageConverted
-      // console.log("test ảnh" +imageConverted.uri) 
-      setImgAvt(imageConverted.uri)
-      // console.log('xcd')
-    }
-    // console.log(albumImage['imageCommon'].img)
-    // setAlbumImage(newAlbum)
-    setIsDoubleClick(true)
-  
-  }
-  console.log(imgavt)
-
-  
 
   const [valueToVote, setValueToVote] = useState({
     nickName: {
@@ -173,7 +130,6 @@ function RegisterToVote01(props) {
               color: colors.colorPageText,
             }}
           >
-         
             ユーザー登録
           </Text>
         </View>
@@ -185,7 +141,6 @@ function RegisterToVote01(props) {
             alignItems: 'center',
           }}
         >
-          <Image source={{uri: images}} style={{height:200 , width:100}}/>
           <TextInputCustomComponent
             updateState={() => {
               updateValueToVote(valueToVote.nickName.key);
@@ -194,11 +149,7 @@ function RegisterToVote01(props) {
             placeholder={valueToVote.nickName.placeHolder}
             value={valueToVote.nickName.value}
           />
-          <TouchableOpacity style={{marginLeft: 20}}
-           onPress = {openCamera}
-          
-          >
-         
+          <TouchableOpacity style={{marginLeft: 20}}>
             <Image
               source={icons.cameraPicture}
               style={{

@@ -22,7 +22,6 @@ function RegisterToCompete02({route}) {
   const dispatch = useDispatch();
 
   const renderAddImage = (key) => {
-    console.log(albumImage[key]?.img?.uri)
     return (
       <View
         style={{ width: constant.WIDTH / 4, height: constant.WIDTH / 4, alignItems: 'center', justifyContent: 'center'}}>
