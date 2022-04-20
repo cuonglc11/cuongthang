@@ -40,6 +40,7 @@ function ChooseToRegister(props) {
             customStyle={{ backgroundColor: '#509BE6', marginTop: 20,  borderWidth: 1, borderColor: colors.borderColor}}
             customStyleText={{ fontSize: constant.HEIGHT > 700 ? 24 : 20}}
             onPress={() => {
+              dispatch(navigateAction({name: 'U1GPTop01'}));
             }}
           />
         </View>

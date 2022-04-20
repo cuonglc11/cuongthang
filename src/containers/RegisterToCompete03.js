@@ -22,12 +22,18 @@ import {useDispatch} from "react-redux";
 
 function RegisterToCompete03(props) {
   const dispatch = useDispatch();
-
+  const checkItemIsOk = () => 
+        valueRegister.entrySection.value==''||
+        valueRegister.machineName.value==''
   const [valueRegister, setValueRegister] = useState({
     entrySection: {
       value: '',
       key: 'entrySection',
-      data: [{label: '18', value: '1'}],
+      data: [
+        {label: '1', value: '1'},
+        {label: '2', value: '2'},
+        {label: '3', value: '3'},
+      ],
     },
     machineName: {
       value: '',
@@ -176,14 +182,29 @@ function RegisterToCompete03(props) {
             onChangeText={text => updateValueRegister(valueRegister.description.key, text)}
           />
         </View>
-        <ButtonCustomComponent
-          label={'次へ'}
-          customStyle={{ backgroundColor: colors.btnNext, width: constant.WIDTH / 3, alignSelf: 'center', marginBottom: 20, marginTop: 50}}
-          customStyleText={{ fontSize: constant.HEIGHT > 700 ? 24 : 14, paddingVertical: Platform.OS === 'ios' ? 5 : 0}}
-          onPress={() => {
-            dispatch(navigateAction({name: 'RegisterToCompete04'}));
-          }}
-        />
+        <TouchableOpacity
+              disabled={checkItemIsOk() == true}
+              style={{
+                backgroundColor:checkItemIsOk()==true? colors.btnNext:'#509BE6',
+                width: constant.WIDTH / 3,
+                alignSelf: 'center',
+                marginVertical: 20,
+                borderRadius: 5,
+                marginTop: 12,
+                padding: 6,
+              }}
+              onPress={() => {
+                dispatch(navigateAction({name: 'RegisterToCompete04'}));
+              }}
+            >
+              <Text style={{
+            fontSize: constant.HEIGHT > 700 ? 24 : 14,
+            paddingVertical: Platform.OS === 'ios' ? 5 : 0,
+            alignSelf:'center',
+            color: colors.white,
+            fontWeight: 'bold',
+          }}>次へ</Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -204,6 +225,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     fontSize: 14,
     paddingRight: 8,
+    color:'black'
   },
 });
 

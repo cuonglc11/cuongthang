@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -8,22 +8,42 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  StyleSheet, Platform,
+  StyleSheet,
+  Platform,
 } from 'react-native';
 import {icons, images} from '../../constants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import colors from '../../constants/colors';
 import TextInputCustomComponent from '../../components/TextInputCustomComponent';
-import ModalDropdownComponent from "../../components/ModalDropdownComponent";
-import commonStyle from "../../resource/styles/commonStyles";
-import constant from "../../constants/constant";
-import {navigateAction} from "../../actions/navigationActions";
-import ButtonCustomComponent from "../../components/ButtonCustomComponent";
-import {useDispatch} from "react-redux";
+import ModalDropdownComponent from '../../components/ModalDropdownComponent';
+import commonStyle from '../../resource/styles/commonStyles';
+import constant from '../../constants/constant';
+import {navigateAction} from '../../actions/navigationActions';
+import ButtonCustomComponent from '../../components/ButtonCustomComponent';
+import {useDispatch} from 'react-redux';
+import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import common from '../../utils/common';
 
 function RegisterToVote01(props) {
+  const actionSheetIsImage = useRef(null);
   const dispatch = useDispatch();
+  const [albumImage, setAlbumImage] = useState({
+    imageUse: {
+      key: 'imageUse',
+      img: null,
+      imgActive: false,
+    },
+  });
+  const checkValueIsOk = () =>
+    valueToVote.nickName.value == '' ||
+    valueToVote.licenseHistory.value == '' ||
+    valueToVote.gender.value == '' ||
+    valueToVote.age.value == '' ||
+    valueToVote.province.value == '' ||
+    valueToVote.prefectures.value == '';
 
+  // const [valueToVote, setValueToVote] = useState(information)
+  // console.log(information);
   const [valueToVote, setValueToVote] = useState({
     nickName: {
       value: '',
@@ -35,28 +55,97 @@ function RegisterToVote01(props) {
       key: 'licenseHistory',
       value: '',
       data: [
-        {label: '型', value: '1'},
+        {label: '免許なし', value: '0'},
+        {label: '取得から3年以上', value: '10'},
+        {label: '取得から5年以上', value: '20'},
+        {label: '取得から10年以上', value: '30'},
+        {label: '取得から20年以上', value: '40'},
       ],
     },
     age: {
       key: 'age',
       value: '',
       data: [
-        {label: '18', value: '1'},
+        {label: '10歳未満', value: '0'},
+        {label: '10代', value: '10'},
+        {label: '20代', value: '20'},
+        {label: '30代', value: '30'},
+        {label: '40代', value: '40'},
+        {label: '50代', value: '50'},
+        {label: '60代', value: '60'},
+        {label: '70歳以上', value: '70'},
       ],
     },
     gender: {
       key: 'gender',
       value: '',
       data: [
-        {label: 'Men', value: '1'},
+        {label: '男', value: '1'},
+        {label: '女', value: '2'},
+        {label: '選択なし', value: '3'},
       ],
     },
     prefectures: {
       key: 'prefectures',
       value: '',
       data: [
-        {label: 'OK', value: '1'},
+        {label: 'なし', value: '10'},
+        {label: '1〜3回', value: '20'},
+        {label: '4〜9回', value: '30'},
+        {label: '10回以上', value: '40'},
+      ],
+    },
+    province: {
+      key: 'province',
+      value: '',
+      data: [
+        {label: '北海道', value: '1'},
+        {label: '青森県', value: '2'},
+        {label: '岩手県', value: '3'},
+        {label: '宮城県', value: '4'},
+        {label: '秋田県', value: '5'},
+        {label: '山形県', value: '6'},
+        {label: '福島県', value: '7'},
+        {label: '茨城県', value: '8'},
+        {label: '栃木県', value: '9'},
+        {label: '群馬県', value: '10'},
+        {label: '埼玉県', value: '11'},
+        {label: '千葉県', value: '12'},
+        {label: '東京都', value: '13'},
+        {label: '神奈川県', value: '14'},
+        {label: '新潟県', value: '15'},
+        {label: '富山県', value: '16'},
+        {label: '石川県', value: '17'},
+        {label: '福井県', value: '18'},
+        {label: '山梨県', value: '19'},
+        {label: '長野県', value: '20'},
+        {label: '岐阜県', value: '21'},
+        {label: '静岡県', value: '22'},
+        {label: '愛知県', value: '23'},
+        {label: '三重県', value: '24'},
+        {label: '滋賀県', value: '25'},
+        {label: '京都府', value: '26'},
+        {label: '大阪府', value: '27'},
+        {label: '兵庫県', value: '28'},
+        {label: '奈良県', value: '29'},
+        {label: '和歌山県', value: '30'},
+        {label: '鳥取県', value: '31'},
+        {label: '島根県', value: '32'},
+        {label: '岡山県', value: '33'},
+        {label: '広島県', value: '34'},
+        {label: '山口県', value: '35'},
+        {label: '徳島県', value: '36'},
+        {label: '香川県', value: '37'},
+        {label: '愛媛県', value: '38'},
+        {label: '高知県', value: '39'},
+        {label: '福岡県', value: '40'},
+        {label: '佐賀県', value: '41'},
+        {label: '長崎県', value: '42'},
+        {label: '熊本県', value: '43'},
+        {label: '大分県', value: '44'},
+        {label: '宮崎県', value: '45'},
+        {label: '鹿児島県', value: '46'},
+        {label: '沖縄県', value: '47'},
       ],
     },
     currentCar: {
@@ -99,18 +188,115 @@ function RegisterToVote01(props) {
     setValueToVote(newValueToVote);
   }
 
+  const [isDoubleClick, setIsDoubleClick] = useState(true);
+
+  const renderActionSheet = () => {
+    const optionsIsImage = ['写真を撮る', 'ライブラリから選ぶ', 'キャンセル'];
+    return (
+      <ActionSheet
+        useNativeDriver={true}
+        ref={actionSheetIsImage}
+        options={optionsIsImage}
+        cancelButtonIndex={2}
+        onPress={index => {
+          switch (index) {
+            case 0:
+              isDoubleClick ? openCamera() : null;
+              break;
+            case 1:
+              isDoubleClick ? openGallery() : null;
+              break;
+            default:
+              break;
+          }
+        }}
+      />
+    );
+  };
+
+  const openCamera = () => {
+    setIsDoubleClick(false);
+    common.pickImageFromCamera(
+      async result => {
+        await addNewImage(result);
+      },
+      onFalse => {
+        setIsDoubleClick(true);
+      },
+    );
+  };
+
+  const openGallery = () => {
+    setIsDoubleClick(false);
+    common.pickImageFromGallery(
+      async result => {
+        await addNewImage(result);
+      },
+      onFalse => {
+        setIsDoubleClick(true);
+      },
+    );
+  };
 
   const renderTitle = (title, content) => {
-     return (
-       <View
-         style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}
-       >
-         <Text style={{fontSize: 18, fontFamily: 'meiryo', color: colors.colorPageText}}>{title}</Text>
-         <Text style={{marginLeft: 20, color: colors.colorPageText, fontSize: 12, fontFamily: 'meiryo'}}>
-           {content}
-         </Text>
-       </View>
-     )
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: 'meiryo',
+            color: colors.colorPageText,
+          }}>
+          {title}
+        </Text>
+        <Text
+          style={{
+            marginLeft: 20,
+            color: colors.colorPageText,
+            fontSize: 12,
+            fontFamily: 'meiryo',
+          }}>
+          {content}
+        </Text>
+      </View>
+    );
+  };
+
+  const addNewImage = async result => {
+    const newAlbum = {...albumImage};
+    const imageConverted = await common.resizeImageNotVideo(result);
+
+    const isImgActive = Object.values(newAlbum).find(value => value.imgActive);
+    if (imageConverted?.uri) {
+      isImgActive.img = imageConverted;
+    }
+    setAlbumImage(newAlbum);
+    setIsDoubleClick(true);
+  };
+
+  const showActionSheet = () => {
+    if (actionSheetIsImage.current === null) {
+      return;
+    }
+    actionSheetIsImage.current.show();
+  };
+
+  const handleImage = keys => {
+    const newAlbum = {...albumImage};
+    Object.keys(albumImage).forEach(key => {
+      newAlbum[key].imgActive = keys === key;
+    });
+    console.log(newAlbum, 'newAlbum');
+    setAlbumImage(newAlbum);
+  };
+
+  const checkImageInList = key => {
+    const newAlbum = {...albumImage};
+    const isImgActive = Object.values(newAlbum).find(
+      value => value.key === key,
+    );
+    console.log(isImgActive, 'isImgActive');
+    return !isImgActive?.img;
   };
 
   return (
@@ -118,8 +304,7 @@ function RegisterToVote01(props) {
       <KeyboardAwareScrollView
         enableOnAndroid
         extraScrollHeight={-20}
-        style={{flex: 1, paddingHorizontal: 10}}
-      >
+        style={{flex: 1, paddingHorizontal: 10}}>
         <View style={{flex: 10, justifyContent: 'center', marginVertical: 20}}>
           <Text
             style={{
@@ -128,8 +313,7 @@ function RegisterToVote01(props) {
               fontFamily: 'meiryo',
               fontSize: 17,
               color: colors.colorPageText,
-            }}
-          >
+            }}>
             ユーザー登録
           </Text>
         </View>
@@ -139,22 +323,32 @@ function RegisterToVote01(props) {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <TextInputCustomComponent
             updateState={() => {
               updateValueToVote(valueToVote.nickName.key);
             }}
             isShadow={false}
+            placeholderColor="grey"
             placeholder={valueToVote.nickName.placeHolder}
             value={valueToVote.nickName.value}
           />
-          <TouchableOpacity style={{marginLeft: 20}}>
+          <TouchableOpacity
+            onPress={() => {
+              handleImage('imageUse');
+              showActionSheet();
+            }}
+            style={{marginLeft: 20}}>
             <Image
-              source={icons.cameraPicture}
+              source={
+                checkImageInList('imageUse')
+                  ? icons.cameraPicture
+                  : {uri: albumImage.imageUse?.img?.uri}
+              }
               style={{
-                height: 44,
-                width: 44,
+                height: 50,
+                width: 50,
+                borderRadius: 60,
               }}
             />
           </TouchableOpacity>
@@ -165,9 +359,14 @@ function RegisterToVote01(props) {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
-          <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 10}}>
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              flex: 1,
+              alignItems: 'center',
+              marginTop: 10,
+            }}>
             <ModalDropdownComponent
               pickerView={commonStyle.styleDropDown}
               value={valueToVote.licenseHistory.value}
@@ -177,7 +376,7 @@ function RegisterToVote01(props) {
                 updateValueToVote(valueToVote.licenseHistory.key, value);
               }}
             />
-            <View style={{ width: 15}}/>
+            <View style={{width: 15}} />
             <ModalDropdownComponent
               pickerView={commonStyle.styleDropDown}
               value={valueToVote.age.value}
@@ -188,7 +387,7 @@ function RegisterToVote01(props) {
               }}
             />
           </View>
-          <View style={{ marginLeft: 64}}/>
+          <View style={{marginLeft: 64}} />
         </View>
         <View
           style={{
@@ -196,9 +395,14 @@ function RegisterToVote01(props) {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
-          <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 20}}>
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              flex: 1,
+              alignItems: 'center',
+              marginTop: 20,
+            }}>
             <ModalDropdownComponent
               pickerView={commonStyle.styleDropDown}
               value={valueToVote.gender.value}
@@ -208,18 +412,18 @@ function RegisterToVote01(props) {
                 updateValueToVote(valueToVote.gender.key, value);
               }}
             />
-            <View style={{ width: 15}}/>
+            <View style={{width: 15}} />
             <ModalDropdownComponent
               pickerView={commonStyle.styleDropDown}
-              value={valueToVote.age.value}
+              value={valueToVote.province.value}
               placeholder={'都道府県'}
-              data={valueToVote.age.data}
+              data={valueToVote.province.data}
               onValueChange={value => {
-                updateValueToVote(valueToVote.age.key, value);
+                updateValueToVote(valueToVote.province.key, value);
               }}
             />
           </View>
-          <View style={{ marginLeft: 64}}/>
+          <View style={{marginLeft: 64}} />
         </View>
         {renderTitle('現愛車', '複数の場合はカンマ区切り')}
         <TextInputCustomComponent
@@ -251,14 +455,21 @@ function RegisterToVote01(props) {
           value={valueToVote.carModelYouWant.value}
           styleContainer={{marginVertical: 0}}
         />
-        <View style={{flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 20, width: '50%'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            alignItems: 'center',
+            marginTop: 20,
+            width: '50%',
+          }}>
           <ModalDropdownComponent
             pickerView={commonStyle.styleDropDown}
-            value={valueToVote.licenseHistory.value}
+            value={valueToVote.prefectures.value}
             placeholder={'8耐&motoGP観戦歴'}
-            data={valueToVote.licenseHistory.data}
+            data={valueToVote.prefectures.data}
             onValueChange={value => {
-              updateValueToVote(valueToVote.licenseHistory.key, value);
+              updateValueToVote(valueToVote.prefectures.key, value);
             }}
           />
         </View>
@@ -272,11 +483,13 @@ function RegisterToVote01(props) {
             multiline={true}
             blurOnSubmit={false}
             value={valueToVote.touringArea.value}
-            onChangeText={text => updateValueToVote(valueToVote.touringArea.key, text)}
+            onChangeText={text =>
+              updateValueToVote(valueToVote.touringArea.key, text)
+            }
           />
         </View>
         {renderTitle('ギア', '')}
-        <View style={[styles.textAreaContainer, { marginBottom: 30}]}>
+        <View style={[styles.textAreaContainer, {marginBottom: 30}]}>
           <TextInput
             style={[styles.textArea]}
             underlineColorAndroid="transparent"
@@ -289,15 +502,33 @@ function RegisterToVote01(props) {
           />
         </View>
 
-        <ButtonCustomComponent
-          label={'次へ'}
-          customStyle={{ backgroundColor: colors.btnNext, width: constant.WIDTH / 3, alignSelf: 'center', marginVertical: 20}}
-          customStyleText={{ fontSize: constant.HEIGHT > 700 ? 24 : 14, paddingVertical: Platform.OS === 'ios' ? 5 : 0}}
-          onPress={() => {
-            dispatch(navigateAction({name: 'RegisterToVote02'}));
+        <TouchableOpacity
+          disabled={checkValueIsOk() == true}
+          style={{
+            backgroundColor:checkValueIsOk()==true? colors.btnNext:'#509BE6',
+            width: constant.WIDTH / 3,
+            alignSelf: 'center',
+            marginVertical: 20,
+            borderRadius: 5,
+            marginTop: 12,
+            padding: 6,
           }}
-        />
+          onPress={() => {
+            dispatch(
+              navigateAction({name: 'RegisterToVote02', params: {a: 1, b: 2}}),
+            );
+          }}
+        >
+          <Text style={{
+            fontSize: constant.HEIGHT > 700 ? 24 : 14,
+            paddingVertical: Platform.OS === 'ios' ? 5 : 0,
+            alignSelf:'center',
+            color: colors.white,
+            fontWeight: 'bold',
+          }}>次へ</Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
+      {renderActionSheet()}
     </SafeAreaView>
   );
 }
@@ -316,6 +547,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     fontSize: 14,
     paddingRight: 8,
+    color: 'black',
   },
 });
 

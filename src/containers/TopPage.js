@@ -9,7 +9,7 @@ import {
   ScrollView,
   StyleSheet, Platform,
 } from 'react-native';
-import {images} from '../constants';
+import {icons,images} from '../constants';
 import colors from '../constants/colors';
 
 function TopPage(props) {
@@ -35,7 +35,6 @@ function TopPage(props) {
       <View style={{flexDirection: 'column', flex: 1}}>
         <ScrollView style={{flex: 1}}>
           <TouchableOpacity
-           onPress={() => navigate('test1')}
             style={{paddingHorizontal: 10, marginTop: 20}}>
             <Text style={styles.titlePage}>{item[0].name}</Text>
             <Image

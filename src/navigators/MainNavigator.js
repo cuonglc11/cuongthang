@@ -7,6 +7,7 @@ import {loadAppStateAction} from '../actions/appStateActions';
 import {navigationRef} from '../actions/navigationActions';
 import NetworkService, {networkRef} from '../repositories/remote/network';
 import TabNavigator from './TabNavigator';
+import U1GPTop01 from '../containers/U1GPTop04/U1GPTop01';
 
 function MainNavigator(props) {
   const [splash, setSplash] = useState(true);

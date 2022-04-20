@@ -66,9 +66,10 @@ const stylesInput = StyleSheet.create({
     marginVertical: 12,
   },
   textInput: {
-    height: 34,
+    height: 35,
     width: '100%',
     marginTop: 4,
+    color:'black'
   },
   inputError: {
     borderWidth: 2,

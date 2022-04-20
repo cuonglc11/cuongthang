@@ -7,17 +7,14 @@ import IconSetting from '../resource/icon/icon-setting.svg';
 import {
   RegisterToVote01,
   RegisterToVote02,
-  RegisterToCompete04
+  RegisterToCompete04,
+  U1GPTop01
 } from '../containers';
 import ChooseToRegister from '../containers/ChooseToRegister'
 import RegisterToCompete01 from '../containers/RegisterToCompete01';
 import RegisterToCompete03 from '../containers/RegisterToCompete03'
-import CameraUI from '../containers/CameraUI'
-import Popup from '../containers/Popup';
 import RegisterToCompete02 from '../containers/RegisterToCompete02'
 import TopPage from "../containers/TopPage";
-import test1 from "../containers/test1"
-Popup
 const Stack = createStackNavigator();
 
 function StackNavigator(props) {
@@ -56,14 +53,6 @@ function StackNavigator(props) {
           title: <Logo />,
         }}
       />
-       <Stack.Screen
-        name="test1"
-        component={test1}
-        options={{
-          headerShown: true,
-          title: <Logo />,
-        }}
-      />
       <Stack.Screen
         name="RegisterToVote02"
         component={RegisterToVote02}
@@ -89,14 +78,6 @@ function StackNavigator(props) {
         }}
       />
       <Stack.Screen
-        name="CameraUI"
-        component={CameraUI}
-        options={{
-          headerShown: true,
-          title: <Logo />,
-        }}
-      />
-      <Stack.Screen
         name="RegisterToCompete02"
         component={RegisterToCompete02}
         options={{
@@ -112,9 +93,18 @@ function StackNavigator(props) {
           title: <Logo />,
         }}
       />
+      
       <Stack.Screen
         name="RegisterToCompete04"
         component={RegisterToCompete04}
+        options={{
+          headerShown: true,
+          title: <Logo />,
+        }}
+      />
+      <Stack.Screen
+        name="U1GPTop01"
+        component={U1GPTop01}
         options={{
           headerShown: true,
           title: <Logo />,

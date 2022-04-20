@@ -11,4 +11,5 @@ export default{
     sortDow: require('../assets/icon/icon_sort_down.png'),
     user:require('../assets/icon/icon_user.png'),
     question:require('../resource/images/icon-question.png'),
+    like:require('../assets/icon/icon_like.png')
   }
